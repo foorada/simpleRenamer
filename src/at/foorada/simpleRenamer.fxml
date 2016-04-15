@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<?import at.foorada.CheckBoxCellFactory?>
+
+<GridPane hgap="10" vgap="10" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.foorada.Controller">
+    <children>
+        <FlowPane>
+            <children>
+                <Label fx:id="directoryTitle" contentDisplay="RIGHT" text="Pfad:">
+                    <padding>
+                        <Insets left="20.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="directoryString" onAction="#directoryFieldAction" prefWidth="250.0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+                <Button fx:id="directoryBtn" onAction="#handleDirectoryChooser" text="Ordner auswählen">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </FlowPane>
+        <FlowPane style="-fx-border-color: lightGray; -fx-border-radius: 5px;" GridPane.rowIndex="1">
+            <children>
+                <CheckBox fx:id="removeTextChk" mnemonicParsing="false" onAction="#updateScreenOnAction" prefWidth="200.0" text="Zeichen entfernen:">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </CheckBox>
+                <Label fx:id="startIdxLbl" text="Start:">
+                    <FlowPane.margin>
+                        <Insets />
+                    </FlowPane.margin>
+                </Label>
+                <TextField fx:id="startIdxField" onKeyReleased="#checkStartIdx" onKeyTyped="#preCheckStartIdx" prefWidth="40.0" text="0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+                <Label fx:id="endIdxLbl" text="Ende:">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </Label>
+                <TextField fx:id="endIdxField" onKeyReleased="#checkEndIdx" onKeyTyped="#preCheckEndIdx" prefWidth="40.0" text="0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+            </children>
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </FlowPane>
+        <FlowPane prefWrapLength="0.0" style="-fx-border-color: lightGray; -fx-border-radius: 5px;" GridPane.rowIndex="2">
+            <children>
+                <CheckBox fx:id="appendingTextChk" mnemonicParsing="false" onAction="#updateScreenOnAction" prefWidth="200.0" text="Text einfügen:">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </CheckBox>
+                <Label fx:id="appendingTextLbl" text="Text:">
+                    <FlowPane.margin>
+                        <Insets />
+                    </FlowPane.margin>
+                </Label>
+                <TextField fx:id="appendingTextField" onKeyReleased="#checkAppendingText" onKeyTyped="#preCheckAppendingText" prefWidth="100.0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+                <Label fx:id="appendingIdxLbl" layoutX="30.0" layoutY="14.0" text="bei">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </Label>
+                <TextField fx:id="appendingIdxField" layoutX="65.0" layoutY="10.0" onKeyReleased="#checkAppendingIdx" onKeyTyped="#preCheckAppendingIdx" prefWidth="40.0" text="0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </FlowPane>
+        <FlowPane prefWrapLength="0.0" style="-fx-border-color: lightGray; -fx-border-radius: 5px;" GridPane.rowIndex="3">
+            <children>
+                <CheckBox fx:id="numberingChk" onAction="#updateScreenOnAction" prefWidth="200.0" text="Nummerierung hinzufügen:">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </CheckBox>
+                <Label fx:id="numberingPositionLbl" text="Position:" />
+                <TextField fx:id="numberingNumberPositionTextField" onKeyReleased="#checkNumberPosition" onKeyTyped="#preCheckNumberPosition" prefWidth="40.0" text="0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+                <Label fx:id="numberingStartLbl" text="Startindex:">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </Label>
+                <TextField fx:id="numberingStartNumberTextField" onKeyReleased="#checkNumberingStartNumber" onKeyTyped="#preCheckNumberingStartNumber" prefWidth="40.0" text="0">
+                    <FlowPane.margin>
+                        <Insets left="10.0" />
+                    </FlowPane.margin>
+                </TextField>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </FlowPane>
+        <TableView fx:id="renamingTable" editable="true" minHeight="250.0" onKeyReleased="#keyPressedRenamingTableView" GridPane.rowIndex="4">
+            <columns>
+                <TableColumn editable="true" prefWidth="34" resizable="false" text="">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="checked" />
+                    </cellValueFactory>
+                    <cellFactory>
+                        <CheckBoxCellFactory/>
+                    </cellFactory>
+                </TableColumn>
+                <TableColumn prefWidth="200.0" text="Aktueller Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="currentName" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn prefWidth="200.0" text="Neuer Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="newName" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <Button mnemonicParsing="false" onAction="#renameFilesBtn" text="Umbenennen" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets bottom="5.0" right="10.0" top="5.0" />
+            </GridPane.margin>
+        </Button>
+    </children>
+    <BorderPane.margin>
+        <Insets />
+    </BorderPane.margin>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </padding>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints vgrow="ALWAYS" />
+        <RowConstraints />
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100.0" />
+    </columnConstraints>
+</GridPane>
